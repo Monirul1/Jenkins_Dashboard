@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<!-- <meta http-equiv="refresh" content="5" > -->
+
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"> </script>
+  <style media="screen">
+  .chart-container {
+    width: 600px;
+    height:400px
+  }
+  </style>
+    <script src="main.js"></script>
+
+
+    <style type="text/css">
+
+    body {
+    background-color: lightblue;
+  }
+
+        .main {
+            text-align: center;
+            font-family: 'Noto Serif', serif;
+            background: #4b6cb7;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+
+
+        .wrapper{
+          max-width: 400px;
+          margin: 30px;
+        }
+
+
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div class="main">
+        <br>
+
+        <h1 style="color:white"> Jenkins Memory Dashboard</h1>
+
+        <!-- CONTAINER 1 STARTS -->
+
+        <br>
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-sm">
+                            <div class="card" style="max-width: 30rem;">
+                                <div class="card-header">
+                                    <h6> Used Memory(mb) <h6>
+                                    </div>
+                                    <div class="card-body">
+                                      <h3 id="usedMemory"><%= (parseData['list'][0]['memoryInformations'].usedMemory /1024 /1024).toFixed(3) %></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="card" style="max-width: 30rem;">
+                                <div class="card-header">
+                                    <h6> Max Memory(mb) <h6>
+                                      </div>
+                                      <div class="card-body">
+                                        <h3 id="maxMemory"><%= `${(parseData['list'][0]['memoryInformations'].maxMemory / 1024) / 1024}` %></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="card" style="max-width: 30rem;">
+                                <div class="card-header">
+                                    <h6> Used Non-heap memory(mb) <h6>
+                                        </div>
+                                        <div class="card-body">
+                                          <h3 id="usedNonHeapMemory"><%= (parseData['list'][0]['memoryInformations'].usedNonHeapMemory /1024 /1024).toFixed(3)%></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="card" style="max-width: 30rem;">
+                                <div class="card-header">
+                                    <h6> Used Buffered Memory(kb) <h6>
+                                        </div>
+                                        <div class="card-body">
+                                          <h3 id="usedBufferedMemory"><%= (parseData['list'][0]['memoryInformations'].usedBufferedMemory/1024).toFixed(3) %></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- CONTAINER 1 ENDS -->
+
+    <!-- CONTAINER 2 STARTS -->
+
+        <br>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm">
+                    <div class="card" style="max-width: 30rem;">
+                        <div class="card-header">
+                            <h6> Used Physical Memory(gb) <h6>
+                            </div>
+                            <div class="card-body">
+                              <h3 id="usedPhysicalMemorySize"><%= (parseData['list'][0]['memoryInformations'].usedPhysicalMemorySize /1024 /1024/1024).toFixed(3)%></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="card" style="max-width: 30rem;">
+                        <div class="card-header">
+                            <h6> garbageCollectionTime(s) <h6>
+                              </div>
+                              <div class="card-body">
+                                <h3 id="garbageCollectionTimeMillis"><%= `${(parseData['list'][0]['memoryInformations'].garbageCollectionTimeMillis)/1000}` %></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="card" style="max-width: 30rem;">
+                        <div class="card-header">
+                            <h6> Available Processors <h6>
+                                </div>
+                                <div class="card-body">
+                                  <h3><%= parseData['list'][0].availableProcessors %></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="card" style="max-width: 30rem;">
+                        <div class="card-header">
+                            <h6> Free Disk Space(gb) <h6>
+                                </div>
+                                <div class="card-body">
+                                  <h3 id="freeDiskSpaceInTemp"><%= (parseData['list'][0].freeDiskSpaceInTemp/1024/1024/1024).toFixed(3) %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Container 2 ENDS -->
+
+  <!-- CONTAINER 3 STARTS -->
+  <br>
+  <div class="container">
+      <div class="row">
+
+          <div class="col-sm">
+              <div class="card" style="max-width: 30rem;">
+                  <div class="card-header">
+                      <h6> Process CPU Time(m) <h6>
+                      </div>
+                      <div class="card-body">
+                        <h3 id="processCpuTimeMillis"><%= ((parseData['list'][0].processCpuTimeMillis)/1000/60).toFixed(3) %></h3>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-sm">
+              <div class="card" style="max-width: 30rem;">
+                  <div class="card-header">
+                      <h6>  Total HTTP Session <h6>
+                        </div>
+                        <div class="card-body">
+                          <h3 id="sessionCount"><%= parseData['list'][0].sessionCount %></h3>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-sm">
+              <div class="card" style="max-width: 30rem;">
+                  <div class="card-header">
+                      <h6> System Load Average <h6>
+                          </div>
+                          <div class="card-body">
+                            <h3 id="systemLoadAverage"><%= parseData['list'][0].systemLoadAverage.toFixed(2) %></h3>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-sm">
+              <div class="card" style="max-width: 30rem;">
+                  <div class="card-header">
+                      <h6> System CPU Load <h6>
+                          </div>
+                          <div class="card-body">
+                            <h3 id="systemCpuLoad"><%= parseData['list'][0].systemCpuLoad.toFixed(2) %></h3>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <br>
+
+
+        <!-- <div class="chart-container"> -->
+
+
+        <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <canvas id="myChart" width="300" height="250"></canvas>
+    </div>
+    <div class="col-sm">
+      <canvas id="myChart2" width="300" height="250"></canvas>
+    </div>
+    <div class="col-sm">
+      <canvas id="myChart3" width="300" height="250"></canvas>
+    </div>
+  </div>
+</div>
+
+
+        <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <canvas id="myChart4" width="300" height="250"></canvas>
+
+    </div>
+    <div class="col-sm">
+      <canvas id="myChart2" width="300" height="250"></canvas>
+    </div>
+    <div class="col-sm">
+      <canvas id="myChart3" width="300" height="250"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
+<div class="row">
+<div class="col-sm">
+<canvas id="myChart4" width="300" height="250"></canvas>
+</div>
+</div>
+</div> -->
+
+
+
+
+
+
+
+          <!-- <canvas id="myChart"></canvas>
+          <canvas id="myChart2"></canvas> -->
+          <!-- <canvas id="myChart3"></canvas> -->
+
+        <!-- </div> -->
+
+
+
+
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+                      https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCFSJsofd6CKl5HCANVzkIy0fJVOKoSffo",
+            authDomain: "fir-b824b.firebaseapp.com",
+            databaseURL: "https://fir-b824b.firebaseio.com",
+            projectId: "fir-b824b",
+            storageBucket: "",
+            messagingSenderId: "603953844250",
+            appId: "1:603953844250:web:196bd2f849f1293c"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var playersRef = firebase.database().ref("jenkinsMemory/");
+
+        playersRef.push({
+            usedMemory: document.getElementById("usedMemory").innerHTML,
+            maxMemory: document.getElementById("maxMemory").innerHTML,
+            usedNonHeapMemory: document.getElementById("usedNonHeapMemory").innerHTML,
+            usedBufferedMemory: document.getElementById("usedBufferedMemory").innerHTML,
+            usedPhysicalMemorySize: document.getElementById("usedPhysicalMemorySize").innerHTML,
+            garbageCollectionTimeMillis: document.getElementById("garbageCollectionTimeMillis").innerHTML,
+            processCpuTimeMillis: document.getElementById("processCpuTimeMillis").innerHTML
+
+
+            // systemLoadAverage: document.getElementById("systemLoadAverage").innerHTML
+
+            // age: document.getElementById("ageField").value
+
+        });
+
+
+        var playersRef = firebase.database().ref("jenkinsMemory/");
+        // playersRef.orderByChild("name").on("child_added", function(data) {
+
+        playersRef.on("value", function(data){
+          var records = data.val();
+          var keys = Object.keys(records);
+
+          // make empty array to push data
+          var timeData = [];
+          var usedMemoryData = [];
+          var usedNonHeapMemoryData = [];
+          var usedPhysicalMemorySizeData = [];
+          var processCpuTimeMillisData = [];
+
+
+          var time = 0;
+          for (var i = 0; i < keys.length; i++)
+          {
+              var k = keys[i];
+            // used memory
+
+              var usedMemory = records[k].usedMemory;
+              usedMemoryData.push(usedMemory);
+
+              var usedNonHeapMemory = records[k].usedNonHeapMemory;
+              usedNonHeapMemoryData.push(usedNonHeapMemory);
+
+              var usedPhysicalMemorySize = records[k].usedPhysicalMemorySize;
+              usedPhysicalMemorySizeData.push(usedPhysicalMemorySize);
+
+              var processCpuTimeMillis = records[k].processCpuTimeMillis;
+              processCpuTimeMillisData.push(processCpuTimeMillis);
+
+              // time push
+              time = time + 1;
+              timeData.push(time + ":00");
+          }
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timeData,
+                datasets: [{
+                    label: 'Used Memory (mb)',
+                    data: usedMemoryData,
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+
+                    ],
+
+                    borderWidth: 2
+                }]
+            },
+            options: {
+      legend: {
+          labels: {
+              fontColor: "white",
+              fontSize: 12
+          }
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }],
+          xAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }]
+      }
+  }
+        });
+
+
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: timeData,
+                datasets: [{
+                    label: 'Used non-Heap Memory (mb)  ',
+                    data: usedNonHeapMemoryData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+      legend: {
+          labels: {
+              fontColor: "white",
+              fontSize: 12
+          }
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }],
+          xAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }]
+      }
+  }
+        });
+
+
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: timeData,
+                datasets: [{
+                    label: 'Used Physical Memory (mb)',
+                    data: usedPhysicalMemorySizeData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+      legend: {
+          labels: {
+              fontColor: "white",
+              fontSize: 12
+          }
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }],
+          xAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }]
+      }
+  }
+        });
+
+
+        var ctx4 = document.getElementById('myChart4').getContext('2d');
+        var myChart = new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: timeData,
+                datasets: [{
+                    label: 'Process CPU Time(m)',
+                    data: processCpuTimeMillisData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+      legend: {
+          labels: {
+              fontColor: "white",
+              fontSize: 12
+          }
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }],
+          xAxes: [{
+              ticks: {
+                  fontColor: "white",
+                  fontSize: 12,
+                  // stepSize: 1,
+                  beginAtZero: true
+              }
+          }]
+      }
+  }
+        });
+
+
+
+        });
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
